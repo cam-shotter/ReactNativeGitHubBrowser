@@ -17,7 +17,7 @@ class GitHubBrowser extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to this Reactive Site!
+          Welcome to this Reactive Site Yeah!
         </Text>
         <Text style={styles.instructions}>
           To get started, edit index.ios.js
@@ -42,11 +42,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
+    backgroundColor: 'powderblue'
   },
   instructions: {
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
+    backgroundColor: 'steelblue'
   },
 });
 
