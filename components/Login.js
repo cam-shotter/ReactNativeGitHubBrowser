@@ -15,7 +15,9 @@ class Login extends Component {
     super(props)
 
     this.state = {
-      showProgress: false
+      showProgress: false,
+      badCredentials: false,
+      unknownError: false
     }
   }
 
@@ -33,16 +35,22 @@ class Login extends Component {
     })
       .then((response) => {
         if ( response.status >= 200 && response.status < 300 ) {
-          console.log("Status ok");
+          this.setState({
+            badCredentials: false,
+            unknownError: false
+          })
           return response
         }
 
         if ( response.status = 401 ) {
-          console.log('bad response');
+          this.setState({ badCredentials: response.status == 401 })
           throw 'Bad Credentials'
         }
 
-        throw 'Unknown Error'
+        this.setState({
+          unknownError: response.status != 401
+        })
+
       })
       .then((response) => {
         return response.json()
@@ -51,14 +59,30 @@ class Login extends Component {
         console.log(results)
       })
       .catch((err) => {
-        console.log('Log in failed: ' + err);
+        this.setState(err)
+        console.log("new err: ", this.state);
       })
       .finally(() => {
         this.setState({showProgress: false})
+        console.log(this.state);
       })
   }
 
   render() {
+    var errorCtrl = <View />
+    if (this.state.badCredentials) {
+      console.log("errorCtrl is working");
+      errorCtrl = <Text style={styles.error} >
+        Wrong Username or Password
+      </Text>
+    }
+    if (this.state.unknownError) {
+      console.log("errorCtrl is working");
+      errorCtrl = <Text style={styles.error} >
+        Sorry, there was an unexpected issue
+      </Text>
+    }
+
     return (
       <View style={styles.container}>
         <Image  style={styles.logo}
@@ -84,6 +108,8 @@ class Login extends Component {
             Log in
           </Text>
         </TouchableHighlight>
+
+        {errorCtrl}
 
         <ActivityIndicator
           animating={this.state.showProgress}
@@ -131,7 +157,10 @@ const styles = StyleSheet.create ({
   },
   loader: {
     marginTop: 20
-  }
+  },
+  // error: {
+  //   backgroundColor: 'red'
+  // }
 })
 
 export default Login
