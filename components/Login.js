@@ -10,6 +10,8 @@ import {
   ActivityIndicator
 } from 'react-native';
 
+import AuthService from './AuthService'
+
 class Login extends Component {
   constructor(props) {
     super(props)
@@ -25,47 +27,12 @@ class Login extends Component {
     console.log("Attempted to login with " + this.state.username);
     this.setState({showProgress: true})
 
-    var b = new buffer.Buffer(this.state.username + ":" + this.state.password)
-    var encodedAuth = b.toString('base64');
-
-    fetch('https://api.github.com/user', {
-      headers: {
-        'Authorization': 'Basic ' + encodedAuth
-      }
+    AuthService.login({
+      username: this.state.username,
+      password: this.state.password
+    }, (results) => {
+      this.setState(results)
     })
-      .then((response) => {
-        if ( response.status >= 200 && response.status < 300 ) {
-          this.setState({
-            badCredentials: false,
-            unknownError: false
-          })
-          return response
-        }
-
-        if ( response.status = 401 ) {
-          this.setState({ badCredentials: response.status == 401 })
-          throw 'Bad Credentials'
-        }
-
-        this.setState({
-          unknownError: response.status != 401
-        })
-
-      })
-      .then((response) => {
-        return response.json()
-      })
-      .then((results) => {
-        console.log(results)
-      })
-      .catch((err) => {
-        this.setState(err)
-        console.log("new err: ", this.state);
-      })
-      .finally(() => {
-        this.setState({showProgress: false})
-        console.log(this.state);
-      })
   }
 
   render() {
@@ -158,9 +125,10 @@ const styles = StyleSheet.create ({
   loader: {
     marginTop: 20
   },
-  // error: {
-  //   backgroundColor: 'red'
-  // }
+  error: {
+    color: 'red',
+    paddingTop: 10
+  }
 })
 
 export default Login
