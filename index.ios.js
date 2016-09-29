@@ -15,10 +15,14 @@ import {
 import Login from './components/Login'
 
 class GitHubBrowser extends Component {
+  onLogin() {
+      console.log("successfully logged in");
+  }
+
   render() {
     return (
       <View>
-        <Login />
+        <Login onLogin={this.onLogin} />
       </View>
     );
   }

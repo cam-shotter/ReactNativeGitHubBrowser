@@ -19,7 +19,8 @@ class Login extends Component {
     this.state = {
       showProgress: false,
       badCredentials: false,
-      unknownError: false
+      unknownError: false,
+      success: false
     }
   }
 
@@ -32,19 +33,23 @@ class Login extends Component {
       password: this.state.password
     }, (results) => {
       this.setState(results)
+
+      if (results.success && this.props.onLogin) {
+        this.props.onLogin()
+      }
     })
   }
 
   render() {
     var errorCtrl = <View />
     if (this.state.badCredentials) {
-      console.log("errorCtrl is working");
+      console.log("badCredentials is working");
       errorCtrl = <Text style={styles.error} >
         Wrong Username or Password
       </Text>
     }
     if (this.state.unknownError) {
-      console.log("errorCtrl is working");
+      console.log("unknownError is working");
       errorCtrl = <Text style={styles.error} >
         Sorry, there was an unexpected issue
       </Text>

@@ -14,7 +14,8 @@ class AuthService {
       if ( response.status >= 200 && response.status < 300 ) {
         callback({
           badCredentials: false,
-          unknownError: false
+          unknownError: false,
+          success: true
         })
         return response
       }
