@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -15,32 +9,50 @@ import {
 import Login from './components/Login'
 
 class GitHubBrowser extends Component {
-  onLogin() {
-      console.log("successfully logged in");
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      // isLoggedIn: false
+    }
+
+  }
+
+
+
+  onLogin(state) {
+    console.log("inside onLogin ", state);
+    state.isLoggedIn = true
   }
 
   render() {
-    return (
-      <View>
+    if (!this.state.isLoggedIn) {
+      return (
         <Login onLogin={this.onLogin} />
-      </View>
-    );
+      )
+    } else {
+      return (
+        <View style={styles.container}>
+          <Text style={styles.welcome} >Logged In</Text>
+        </View>
+      )
+    }
   }
 }
 
 const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   backgroundColor: '#333',
-  // },
-  // welcome: {
-  //   fontSize: 20,
-  //   textAlign: 'center',
-  //   margin: 10,
-  //   backgroundColor: 'powderblue'
-  // },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#333',
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+    backgroundColor: 'powderblue'
+  },
   // instructions: {
   //   textAlign: 'center',
   //   color: '#333333',

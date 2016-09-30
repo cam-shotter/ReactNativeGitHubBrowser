@@ -20,7 +20,8 @@ class Login extends Component {
       showProgress: false,
       badCredentials: false,
       unknownError: false,
-      success: false
+      success: false,
+      isLoggedIn: false
     }
   }
 
@@ -35,7 +36,10 @@ class Login extends Component {
       this.setState(results)
 
       if (results.success && this.props.onLogin) {
-        this.props.onLogin()
+        console.log("before onlogin ", this.state);
+        this.props.onLogin(this.state)
+
+        console.log("after onlogin ", this.state);
       }
     })
   }
