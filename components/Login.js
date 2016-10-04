@@ -32,13 +32,10 @@ class Login extends Component {
       username: this.state.username,
       password: this.state.password
     }, (results) => {
-      this.setState(results)
+      // this.setState(results)
 
       if (results.success && this.props.onLogin) {
-        console.log("before onlogin ", this.state);
-        this.props.onLogin(this.state)
-
-        console.log("after onlogin ", this.state);
+        this.props.onLogin()
       }
     })
   }

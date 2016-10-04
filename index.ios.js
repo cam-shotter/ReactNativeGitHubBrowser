@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 
 import Login from './components/Login'
+import AppContainer from './components/AppContainer'
 import AuthService from './components/AuthService'
 
 var GitHubBrowser = React.createClass({
@@ -46,9 +47,7 @@ var GitHubBrowser = React.createClass({
 
     if (this.state.isLoggedIn) {
       return (
-        <View style={styles.container} >
-          <Text style={styles.welcome} >Logged In!</Text>
-        </View>
+        <AppContainer />
       )
     } else {
       return (
@@ -68,6 +67,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center'
   }
-});
+})
 
 AppRegistry.registerComponent('GitHubBrowser', () => GitHubBrowser);
