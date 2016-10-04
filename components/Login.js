@@ -20,8 +20,7 @@ class Login extends Component {
       showProgress: false,
       badCredentials: false,
       unknownError: false,
-      success: false,
-      isLoggedIn: false
+      success: false
     }
   }
 

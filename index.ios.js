@@ -8,37 +8,34 @@ import {
 
 import Login from './components/Login'
 
-class GitHubBrowser extends Component {
-  constructor(props) {
-    super(props)
+var GitHubBrowser = React.createClass({
 
-    this.state = {
-      // isLoggedIn: false
+  getInitialState: function() {
+    return {
+      isLoggedIn: false
     }
+  },
 
-  }
+  onLogin: function() {
+    this.setState({ isLoggedIn: true })
+    // console.log("inside onLogin ", state);
+    // state.isLoggedIn = true
+  },
 
-
-
-  onLogin(state) {
-    console.log("inside onLogin ", state);
-    state.isLoggedIn = true
-  }
-
-  render() {
-    if (!this.state.isLoggedIn) {
+  render: function() {
+    if (this.state.isLoggedIn) {
       return (
-        <Login onLogin={this.onLogin} />
-      )
-    } else {
-      return (
-        <View style={styles.container}>
+        <View style={styles.container} >
           <Text style={styles.welcome} >Logged In</Text>
         </View>
       )
+    } else {
+      return (
+        <Login onLogin={this.onLogin} />
+      )
     }
   }
-}
+})
 
 const styles = StyleSheet.create({
   container: {
