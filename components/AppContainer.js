@@ -7,7 +7,7 @@ import {
   TabBarIOS
 } from 'react-native';
 
-import AuthService from './AuthService'
+import Feed from './Feed'
 
 class AppContainer extends Component {
   constructor(props) {
@@ -27,7 +27,7 @@ class AppContainer extends Component {
             icon={require('image!inbox')}
             onPress={()=> this.setState({selectedTab: 'feed'})}
         >
-            <Text style={styles.welcome}>Tab 1</Text>
+            <Feed />
         </TabBarIOS.Item>
         <TabBarIOS.Item
             title="Search"
@@ -46,11 +46,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
   },
   welcome: {
     fontSize: 20,
-    textAlign: 'center'
+    textAlign: 'center',
+    margin: 10,
   }
 })
 
